@@ -23,7 +23,7 @@ MongoClient.connect('mongodb://localhost:27017/ToDoApplication', (err, client) =
     //     }         
     //     console.log(`Record Created -> ${JSON.stringify(result.ops[0]._id.getTimestamp(), undefined, 2)} `);
     // });
-    
+    // Search Collections using query
     db.collection('ToDos').find({status:{$ne: "Done"}}).toArray().then((res) => {
     // cursor.count().then( (count) => {
         console.log(`Records from Cursor : ${count} `);
@@ -31,13 +31,13 @@ MongoClient.connect('mongodb://localhost:27017/ToDoApplication', (err, client) =
 
     });
 
+    // Search Collections full as it is.
     db.collection('ToDos').find().toArray().then((res) => {
         console.log(`Search Result : ${res.length} records ->  `);
         console.log(JSON.stringify(res, undefined, 2));
 
     }, (errHandle) => {
-        console.log('No Documents found', errHandle);
-        
+        console.log('No Documents found', errHandle);        
     }) ;
 
 
