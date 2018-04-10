@@ -9,6 +9,7 @@ let app = express() ;
 
 app.use(bodyParser.json()) ;
 
+// Adding Post Route
 app.post('/todos', (req, res) => {
     console.log(req.body);
     
@@ -24,6 +25,16 @@ app.post('/todos', (req, res) => {
         res.status(400).send(eo);
     });
 }) ;
+
+// Adding GET Route.
+app.get('/todos', (req, res) => {
+    objToDo.find({})
+        .then((resp) => {
+            res.send({resp}) ;
+        }, (eor) => {
+            res.status(400).send(eor);
+        });
+});
 
 app.listen('7000', () => {
     console.log('Server started at port 7000');
