@@ -1,33 +1,30 @@
-const mongoose = require('mongoose') ;
-const _USERDB = 'ToDaApplicationA1';
-// const _USERDB = '' ;
-const _URI = 'mongodb://localhost:27017/' + _USERDB;
+const express = require('express') ;
+const bodyParser = require('body-parser');
 
-mongoose.Promise = global.Promise ;
-mongoose.connect(_URI) ;
+const {mongoose} = require('./db/mongoose-connect.js') ;
+const {objToDo} = require('./models/todo.js');
+const {objUser} = require('./models/userInfo');
 
-let objToDo = mongoose.model('ToDoCollection', {
-    text: {
-        type: String
-    }
-    , completed: {
-        type: Boolean
-    }
-    , completedAt: {
-        type: Date
-    }
-});
+let app = express() ;
 
-let newToDo = new objToDo({
-    text: "Upload to GitHub the created Mongoose Object",
-    completed: false,
-    completedAt: 0
-});
+app.use(bodyParser.json()) ;
 
-newToDo.save().then((res) => {
-    console.log(`ToDo created : ${res}`);
-}, (err) => {
-    console.log(`Error in ToDo Creation -> `, err);
+app.post('/todos', (req, res) => {
+    console.log(req.body);
     
-});
+    var todo = new objToDo({
+        text: req.body.text 
+    }) ;
 
+    // Saving the todo
+    todo.save().then((resp) => {
+        // Sending the response of the created todo.
+        res.send(resp) ;
+    }, (eo) => {
+        res.status(400).send(eo);
+    });
+}) ;
+
+app.listen('7000', () => {
+    console.log('Server started at port 7000');
+}) ;
