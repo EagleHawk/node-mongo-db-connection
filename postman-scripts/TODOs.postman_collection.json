@@ -1,0 +1,96 @@
+{
+	"info": {
+		"_postman_id": "f4775e07-80f9-45b6-96e6-5b44fede71c6",
+		"name": "TODOs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "POST  /ToDo API",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"text\": \"Testing Express API\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:7000/todos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"todos"
+					]
+				},
+				"description": "\t\t\t\t"
+			},
+			"response": []
+		},
+		{
+			"name": "GET  /ToDo API",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"text\": \"Testing Express API\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:7000/todos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"todos"
+					]
+				},
+				"description": "\t\t\t\t"
+			},
+			"response": []
+		},
+		{
+			"name": "POST  /oUser",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"o_cornel\",\n\t\"password\": \"oneil009\",\n\t\"role\": \"standard user\",\n\t\"email\": \"o_neid@somecompcom\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:7000/oUser",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"oUser"
+					]
+				},
+				"description": "\t\t\t\t"
+			},
+			"response": []
+		}
+	]
+}

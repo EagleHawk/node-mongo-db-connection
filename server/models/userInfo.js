@@ -1,8 +1,16 @@
 const mongoose = require('mongoose') ;
+const validator = require('validator');
 
-let objUser = mongoose.model('UserInformation', {
+let oUser = mongoose.model('UserInformation', {
     username: {
         type: String,
+        required: true,
+        unique: true,
+        trim: true
+    }
+    , password: {
+        type: String,
+        minlength: 6,
         required: true
     }
     , role: {
@@ -11,14 +19,20 @@ let objUser = mongoose.model('UserInformation', {
     }
     , location: {
         type: String,
-        required: true
+        required: false
     }
     , email: {
         type: String,
         required: true,
         trim: true,
-        minlength: 1
+        minlength: 1,
+        unique: true,
+        validate: {
+            validator: validator.isEmail,
+            message: 'Please provide a valid email address.'
+        }
     }
+    , tokens: []
 });
 
-module.exports = {objUser} ;
+module.exports = {oUser} ;
