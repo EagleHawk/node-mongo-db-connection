@@ -49,13 +49,13 @@ app.post('/oUser', (req, res) => {
 
 app.get('/todos/:id', (req, res) => {
 	// GET Route for fetching an individial resource by using a request.
-	let oID = req.param('id');
+	let oID = req.params.id;
 
 	if (!ObjectID.isValid(oID)) {
 		res.status(404).send() ;
 	} 
 
-	Todo.findById({ _id: '5acb73b993c53c07dd97971f'}).then((resTo) => {
+	Todo.findById({ _id: oID}).then((resTo) => {
 		if (!resTo) {
 			res.status(404).send();
 		}
