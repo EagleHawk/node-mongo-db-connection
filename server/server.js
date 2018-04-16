@@ -5,9 +5,11 @@ var {ObjectID} = require('mongodb');
 var { mongoose } = require('./db/mongoose-connect');
 var { Todo } = require('./models/todo');
 var { oUser } = require('./models/userInfo');
+const _PORT = process.env.PORT || 8080 ;
 
 var app = express();
 
+app.set('port', _PORT);
 app.use(bodyParser.json());
 
 app.post('/todos', (req, res) => {
@@ -65,8 +67,8 @@ app.get('/todos/:id', (req, res) => {
 	})
 })
 
-app.listen(7000, () => {
-	console.log('Started on port 7000');
+app.listen(_PORT, () => {
+	console.log(`Started on port ${_PORT}`);
 });
 
 module.exports = { app };
