@@ -1,6 +1,7 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var {ObjectID} = require('mongodb');
+const _ = require('lodash');
+const express = require('express');
+const bodyParser = require('body-parser');
+const {ObjectID} = require('mongodb');
 
 var { mongoose } = require('./db/mongoose-connect');
 var { Todo } = require('./models/todo');
@@ -71,11 +72,11 @@ app.get('/todos/:id', (req, res) => {
 }) ;
 
 // REST DELETE operation using the resource condition.
-app.delete('/todos', (req, res) => {
+app.delete('/todos/:id', (req, res) => {
 	// DELETE Route for deleting a individial or multiple documents using a request.
 	let oID = req.params.id ;
 
-	console.log(`Request params : ${JSON.stringify(req.params, undefined, 2)} `);
+	// console.log(`Request params : ${JSON.stringify(req.params, undefined, 2)} `);
 	
 	if (!ObjectID.isValid(oID)) {
 		return res.status(404).send() ;
@@ -91,7 +92,34 @@ app.delete('/todos', (req, res) => {
 	})
 }) ;
 
+// REST Update(patch) operation using the resource condition.
+app.patch('/todos/:id', (req, res) => {
+	// PATCH Route for updating a individial using a request.
+	let oID = req.params.id ;
+	let oBody = _.pick(req.body, ["text", "completed"]);	
 
+	if (!ObjectID.isValid(oID)) {
+		return releaseEvents.status(404).send();
+	}
+
+	if (_.isBoolean(oBody.completed) && oBody.completed) {
+		oBody.completedAt = new Date().getTime() ;
+	} else {
+		oBody.completed = false;
+		oBody.completedAt = null;
+	}
+
+	Todo.findByIdAndUpdate(oID, {$set: oBody}, {new: true}).then((result) => {
+		if (!result) {
+			return res.status(404).send();
+		}
+
+		res.send({result});
+	}).catch(error => {
+		res.status(404).send(error) ;
+	})
+	
+});
 
 app.listen(_PORT, () => {
 	console.log(`Started on port ${_PORT}`);
